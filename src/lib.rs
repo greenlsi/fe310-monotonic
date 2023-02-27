@@ -12,7 +12,7 @@ use rtic_monotonic::Monotonic;
 */
 pub struct MonoRtc {
     /* Holds the overflow interrupt bit from rtccmpip*/
-    pending: u8, // FIXME: is this the correct bit?
+    pending: u8, // REVIEW: is this the correct bit?
     /* This is not a T type like nRF because we only have one 
     RTC peripheral for this device */
     rtc: Rtc
@@ -49,10 +49,10 @@ impl Monotonic for MonoRtc {
     }
 
     fn clear_compare_flag(&mut self) {
+        // HACK:
         /* Workaround for clearing the interrupt bit */
         /* Field is read-only, so we need to write a value higher than
         the current rtccmp value. */
-        // FIXME
         self.rtc.set_rtccmp(0xffffffff);
     }
 
@@ -63,7 +63,7 @@ impl Monotonic for MonoRtc {
     fn enable_timer(&mut self) {
         self.rtc.enable();
     }
-    // TODO: optional, we might not need this for our register
+    // REVIEW: optional, we might not need this for our register
     // Investigate the hi and lo registers and relationship with rtccmp
     fn on_interrupt(&mut self) {
         
@@ -75,7 +75,7 @@ impl Monotonic for MonoRtc {
     }
 
     fn set_compare(&mut self, instant: Self::Instant) {
-        // TODO checking akin to nRF implementation (do we need it?)
+        // REVIEW: checking akin to nRF implementation (do we need it?)
         self.rtc.set_rtccmp(instant.ticks());
     }
 
