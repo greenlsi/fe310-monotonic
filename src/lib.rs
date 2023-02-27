@@ -52,7 +52,7 @@ impl Monotonic for MonoRtc {
         /* Workaround for clearing the interrupt bit */
         /* Field is read-only, so we need to write a value higher than
         the current rtccmp value. */
-        self.rtc.set_rtccmp(0xffff);
+        self.rtc.set_rtccmp(0xffffffff);
     }
 
     fn disable_timer(&mut self) {
