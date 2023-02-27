@@ -49,25 +49,35 @@ impl Monotonic for MonoRtc {
     }
 
     fn clear_compare_flag(&mut self) {
+        /* Workaround for clearing the interrupt bit */
+        /* Field is read-only, so we need to write a value higher than
+        the current rtccmp value. */
+        self.rtc.set_rtccmp(0xffff);
+    }
 
-    }
     fn disable_timer(&mut self) {
-        
+        self.rtc.disable();
     }
+
     fn enable_timer(&mut self) {
-        
+        self.rtc.enable();
     }
+
     fn on_interrupt(&mut self) {
         
     }
+
     unsafe fn reset(&mut self) {
-        
+        self.rtc.set_rtc(0);
+        self.rtc.set_rtccmp(0);
     }
+
     fn set_compare(&mut self, instant: Self::Instant) {
-        
+        // TODO checking akin to nRF implementation (do we need it?)
+        self.rtc.set_rtccmp(instant.ticks());
     }
+
     fn zero() -> Self::Instant {
-        // TEMPORARY
         Self::Instant::from_ticks(0)
     }
 }
