@@ -4,7 +4,7 @@
 #![no_std]
 
 pub use fugit::{self, ExtU64};
-use e310x_hal::{*, core::clint::Clint, rtc::Rtc};
+use e310x_hal::{rtc::Rtc};
 use rtic_monotonic::Monotonic;
 /*
 * Monotonic clock implementation using CLINT peripheral to
@@ -50,7 +50,7 @@ impl Monotonic for MonoRtc {
     }
 
     fn clear_compare_flag(&mut self) {
-        
+
     }
     fn disable_timer(&mut self) {
         
