@@ -52,6 +52,7 @@ impl Monotonic for MonoRtc {
         /* Workaround for clearing the interrupt bit */
         /* Field is read-only, so we need to write a value higher than
         the current rtccmp value. */
+        // FIXME
         self.rtc.set_rtccmp(0xffffffff);
     }
 
@@ -62,7 +63,8 @@ impl Monotonic for MonoRtc {
     fn enable_timer(&mut self) {
         self.rtc.enable();
     }
-
+    // TODO: optional, we might not need this for our register
+    // Investigate the hi and lo registers and relationship with rtccmp
     fn on_interrupt(&mut self) {
         
     }
