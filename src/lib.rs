@@ -7,18 +7,17 @@ pub use fugit::{self, ExtU64};
 use e310x_hal::{rtc::Rtc};
 use rtic_monotonic::Monotonic;
 /*
-* Monotonic clock implementation using CLINT peripheral to
-* control the mtime register.
+* Monotonic clock implementation using RTC peripheral
 * Adapted from the nRF implementation
 */
 pub struct MonoRtc {
     /* Holds the overflow interrupt bit from rtccmpip*/
-    pending: u8,
+    pending: u8, // FIXME: is this the correct bit?
     /* This is not a T type like nRF because we only have one 
     RTC peripheral for this device */
     rtc: Rtc
 }
-/* RTC based timer using the CLINT */
+/* RTC based timer */
 impl MonoRtc {
     /* we are expecting the user to provide us a RTC instance */
     pub fn new(mut rtc: Rtc) -> Self {
