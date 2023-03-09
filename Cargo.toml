@@ -6,6 +6,6 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-e310x-hal = { version = "*" }
-fugit = { version = "*" }
-rtic-monotonic = { version = "*" }
+e310x-hal = { git = "https://github.com/riscv-rust/e310x-hal.git", rev = "94b6474" }
+fugit = "0.3"
+rtic-monotonic = "1.0"
